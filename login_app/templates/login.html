@@ -1,0 +1,22 @@
+{% extends "index.html" %}
+
+{% block contenido %}
+
+<div class="row">
+  <a href="/" class="text-end">Log out</a>
+</div>
+
+<div class="card text-center col-8 m-auto mt-4">
+  <div class="card-header ">
+    Acabas de hacer un Login
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">¡Haz ingresado con el email {{ request.session.log_user}}</h5>
+    <p class="card-text">¡Esperamos que disfrutes tu estancia en nuestro sitio!</p>
+    <a href="#" class="btn btn-primary">Hacer algo</a>
+  </div>
+<div class="card-footer text-muted">
+
+</div>
+</div>
+{% endblock %}
