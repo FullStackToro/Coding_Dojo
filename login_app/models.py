@@ -8,8 +8,17 @@ from time import gmtime, strftime
 class UsuarioManager(models.Manager):
     def validacion_registro(self, postData):
         error = {}
-        time = datetime.strptime(postData['fecha'], '%Y-%m-%d')
-        now=datetime.now()
+        if not len(postData['fecha']):
+            pass
+        else:
+            time = datetime.strptime(postData['fecha'], '%Y-%m-%d')
+            now=datetime.now()
+            var = datetime.strptime(f"{int(now.year) - 16}-{now.month}-{now.day}", '%Y-%m-%d')
+            if time > datetime.now():
+                error['net_1'] = f"La fecha no puede ser superior a {now.year}/{now.month}/{now.day}"
+            elif time > var:
+                error['edad'] = "El usuario debe tener al menos 16 años para poderse registrar."
+
         largo_data = [2, 2, 8]
         if(len(postData['nombre']) < largo_data[0]):
             error['nombre'] = f"El nombre debe tener al menos {largo_data[0]} caracteres"
@@ -25,12 +34,6 @@ class UsuarioManager(models.Manager):
         if Usuario.objects.filter(cuenta__email__icontains=postData['email']):
             error['email_reviews'] = f"El correo {postData['email']} ya se encuentra en nuestros registros."
 
-        var = datetime.strptime(f"{int(now.year) - 16}-{now.month}-{now.day}", '%Y-%m-%d')
-
-        if time > datetime.now():
-            error['net_1'] = f"La fecha no puede ser superior a {now.year}/{now.month}/{now.day}"
-        elif time > var:
-            error['edad'] = "El usuario debe tener al menos 16 años para poderse registrar."
         return error
 
     def validacion_login(self, postData):
