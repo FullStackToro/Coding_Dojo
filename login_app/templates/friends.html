@@ -1,0 +1,88 @@
+{% extends "index.html" %}
+
+{% block pagina %}
+
+    <div class="row" style="background: white">
+        <div class="col-9"></div>
+        <div class="col-3"> Bienvenido
+            {{ request.session.log_name }}
+            {% block datos %}
+            /
+            {% endblock %}
+
+            <a href="/logout" class="text-end">Log out</a>
+        </div>
+    </div>
+    {% block sesion %}
+    <div class="card text-center col-8 m-auto mt-4">
+        <div class="card-header ">
+        Friends App
+        </div>
+
+    <div class="card-body">
+        <h5 class="card-title">¡Hola {{ request.session.log_name}}!</h5>
+        <p class="card-text">Acá se encuentra una lista de tus amigos</p>
+        <div class="table-responsive col-12 mx-auto mt-5">
+        <table class="table table-hover table-inf">
+            <thead>
+                <tr class="table-dark">
+                <th scope="col">ID</th>
+                  <th scope="col">Alias</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-active">
+                {% ifequal friend|length 0 %}
+                <td colspan="3" class="table-active">El Usuario no tiene amigos</td>
+{% endifequal %}
+                </tr>
+
+            {% for person in friend %}
+                <tr>
+                <td scope="row">{{ person.id }}</td>
+                    <td scope="row">{{ person.alias }}</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                            <a href="/user/{{ person.id }}" class="text-start me-2">Ver perfil </a> |
+                            <a href="/delete_friend/{{ person.id }}" class="text-start me-2 ms-2">Remover de amigo</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+
+
+            </tbody>
+        </table>
+    </div>
+
+        <div class="table-responsive col-4 mx-auto mt-5">
+        <table class="table table-hover table-inf">
+            <thead>
+                <tr class="table-dark">
+                  <th scope="col">Alias</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for person in not_friend %}
+                <tr>
+                    <td scope="row">{{ person.alias }}</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                    <a href="/add_friend/{{ person.id }}" class="btn btn-primary">Agregar amigo</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    <div class="card-footer text-muted">
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% endblock %}

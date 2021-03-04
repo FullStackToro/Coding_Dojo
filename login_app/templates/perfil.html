@@ -1,0 +1,21 @@
+{% extends "friends.html" %}
+
+{% block datos %}
+<a href="/friends" class="text-end">Home</a>
+{% endblock %}
+
+{% block sesion %}
+<div class="card text-center col-8 m-auto mt-4">
+        <div class="card-header ">
+        <h4>View profile # {{ user.id }}</h4>
+        </div>
+
+    <div class="card-body">
+        <h5 class="card-title">Perfil de {{ user.name}}</h5>
+        <p class="card-text">Email:  {{ user.cuenta.email }}</p>
+
+    <div class="card-footer text-muted">
+
+    </div>
+</div>
+{% endblock %}
