@@ -67,7 +67,8 @@
             <tbody>
             {% for person in not_friend %}
                 <tr>
-                    <td scope="row">{{ person.alias }}</td>
+                    <td scope="row"><a href="/user/{{ person.id }}" class="text-start me-2">{{ person.alias }} </a></td>
+
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                     <a href="/add_friend/{{ person.id }}" class="btn btn-primary">Agregar amigo</a>
